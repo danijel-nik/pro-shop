@@ -2,7 +2,10 @@ const express = require('express')
 const dotenv = require('dotenv')
 const colors = require('colors')
 const connectDB = require('./config/db')
-const products = require('./data/products')
+// Routes
+const productRoutes = require('./routes/productRoutes')
+// Middlewares
+const errorMiddleware = require('./middleware/errorMiddleware')
 
 dotenv.config()
 
@@ -16,15 +19,15 @@ app.get('/', (req, res) => {
     res.send('API is running...');
 })
 
-app.get('/api/products', (req, res) => {
-    res.json(products);
-})
+// Routes
+app.use('/api/products', productRoutes)
 
-app.get('/api/products/:id', (req, res) => {
-    const product = products.find(p => p._id === req.params.id)
-    res.json(product);
-})
+// Custom middlewares
+// Error handling
+app.use(errorMiddleware.notFound)
+
+app.use(errorMiddleware.errorHandler)
 
 const PORT = process.env.PORT || 5000
 
-app.listen(5000, console.log(`Server is running in ${process.env.NODE_ENV} on port ${PORT}`.yellow.bold))
+app.listen(PORT, console.log(`Server is running in ${process.env.NODE_ENV} on port ${PORT}`.yellow.bold))
