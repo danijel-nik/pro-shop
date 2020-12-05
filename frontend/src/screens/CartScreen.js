@@ -16,6 +16,8 @@ const CartScreen = ({ match, location, history }) => {
     const cart = useSelector(state => state.cart)
     const { cartItems } = cart
 
+    const subtotalItems = cartItems.reduce((accumulator, item) => accumulator + item.qty, 0)
+
     useEffect(() => {
         if (productId) {
             dispatch(addToCart(productId, qty))
@@ -72,7 +74,7 @@ const CartScreen = ({ match, location, history }) => {
                     <Card>
                         <ListGroup variant='flush'>
                             <ListGroupItem>
-                                <h2>Subtotal ({cartItems.reduce((accumulator, item) => accumulator + item.qty, 0)}) items</h2>
+                            <h2>Subtotal ({subtotalItems}) {subtotalItems === 1 ? 'item' : 'items'}</h2>
                                 ${cartItems
                                     .reduce((accumulator, item) => accumulator + item.price * item.qty, 0)
                                     .toFixed(2)
