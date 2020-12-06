@@ -4,6 +4,7 @@ const colors = require('colors')
 const connectDB = require('./config/db')
 // Routes
 const productRoutes = require('./routes/productRoutes')
+const userRoutes = require('./routes/userRoutes')
 // Middlewares
 const errorMiddleware = require('./middleware/errorMiddleware')
 
@@ -15,12 +16,15 @@ connectDB()
 // App initialization
 const app = express()
 
+app.use(express.json())
+
 app.get('/', (req, res) => {
     res.send('API is running...');
 })
 
 // Routes
 app.use('/api/products', productRoutes)
+app.use('/api/users', userRoutes)
 
 // Custom middlewares
 // Error handling
