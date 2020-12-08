@@ -22,7 +22,7 @@ const protect = asyncHandler(async (req, res, next) => {
         }
 
     } else {
-        console.log('token found')
+        console.log('token not found')
     }
 
     if (!token) {
