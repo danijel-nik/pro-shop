@@ -28,7 +28,7 @@ app.use('/api/users', userRoutes)
 
 // Custom middlewares
 // Error handling
-app.use(errorMiddleware.notFound)
+// app.use(errorMiddleware.notFound)
 
 app.use(errorMiddleware.errorHandler)
 
