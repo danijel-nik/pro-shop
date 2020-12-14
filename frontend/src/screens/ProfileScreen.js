@@ -4,7 +4,7 @@ import { Form, Button, Row, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
-import { getUserDetails } from '../store/actions/userActions'
+import { getUserDetails, updateUserProfile } from '../store/actions/userActions'
 
 const ProfileScreen = ({ location, history }) => {
 
@@ -22,13 +22,21 @@ const ProfileScreen = ({ location, history }) => {
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo } = userLogin
 
+    const userUpdateProfile = useSelector(state => state.userUpdateProfile)
+    const { success } = userUpdateProfile
+
     useEffect(() => {
         if (!userInfo) {
             history.push('/login')
         } else {
-            // dispatch(getUserDetails('profile'))
-            setName(userInfo.name)
-            setEmail(userInfo.email)
+            dispatch(getUserDetails('profile'))
+            if (user) {
+                setName(user.name)
+                setEmail(user.email)
+            } else {
+                setName(userInfo.name)
+                setEmail(userInfo.email)
+            }
         }
     }, [dispatch, history, userInfo])
     
@@ -37,7 +45,7 @@ const ProfileScreen = ({ location, history }) => {
         if (password !== confirmPassword) {
             setMessage('Passwords do not match')
         } else {
-            // dispatch(updateProfile(name, email, password))
+            dispatch(updateUserProfile({ id: userInfo._id, name, email, password }))
         }
     }
 
@@ -47,6 +55,7 @@ const ProfileScreen = ({ location, history }) => {
                 <h2>User Profile</h2>
                 {message && <Message variant='danger'>{message}</Message>}
                 {error && <Message variant='danger'>{error}</Message>}
+                {success && <Message variant='success'>Profile updated!</Message>}
                 {loading && <Loader />}
                 <Form onSubmit={submitHandler}>
                     <Form.Group controlId='name'>
