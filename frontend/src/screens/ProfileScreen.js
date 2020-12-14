@@ -4,6 +4,7 @@ import { Form, Button, Row, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
+import { USER_UPDATE_PROFILE_RESET } from '../store/constants/userConstants'
 import { getUserDetails, updateUserProfile } from '../store/actions/userActions'
 
 const ProfileScreen = ({ location, history }) => {
@@ -29,14 +30,15 @@ const ProfileScreen = ({ location, history }) => {
         if (!userInfo) {
             history.push('/login')
         } else {
-            if (!user || !user.name) {
+            if (!user || !user.name || success) {
                 dispatch(getUserDetails('profile'))
+                dispatch({ type: USER_UPDATE_PROFILE_RESET })
             } else {
                 setName(user.name)
                 setEmail(user.email)
             }
         }
-    }, [dispatch, history, userInfo, user])
+    }, [dispatch, history, userInfo, user, success])
     
     const submitHandler = (e) => {
         e.preventDefault()
