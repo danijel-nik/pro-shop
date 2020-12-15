@@ -5,7 +5,7 @@ import {
     CART_SAVE_PAYMENT_METHOD
  } from '../constants/cartConstants'
 
-export const cartReducer = (state = { cartItems: [], shippingAddress: {}, paymentMethod: {} }, actions) => {
+export const cartReducer = (state = { cartItems: [], shippingAddress: {} }, actions) => {
     switch (actions.type) {
         case CART_ADD_ITEM:
             const item = actions.payload
