@@ -5,6 +5,7 @@ const connectDB = require('./config/db')
 // Routes
 const productRoutes = require('./routes/productRoutes')
 const userRoutes = require('./routes/userRoutes')
+const orderRoutes = require('./routes/orderRoutes')
 // Middlewares
 const errorMiddleware = require('./middleware/errorMiddleware')
 
@@ -25,6 +26,7 @@ app.get('/', (req, res) => {
 // Routes
 app.use('/api/products', productRoutes)
 app.use('/api/users', userRoutes)
+app.use('/api/orders', orderRoutes)
 
 // Custom middlewares
 // Error handling
