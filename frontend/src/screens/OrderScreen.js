@@ -29,7 +29,7 @@ const OrderScreen = ({ match }) => {
             dispatch(getOrderDetails(orderId))
         }
         // eslint-disable-next-line
-    }, [order, orderId])
+    }, [dispatch, orderId])
 
     const placeOrderHandler = () => {
         
