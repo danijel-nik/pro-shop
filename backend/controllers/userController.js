@@ -79,10 +79,6 @@ const getUserProfile = asyncHandler(async (req, res) => {
         res.status(401)
         throw new Error('Invalid user or password')
     }
-
-    
-    res.send('Success!')
-
 })
 
 // @desc    Update user profile
@@ -119,9 +115,22 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 
 })
 
+// @desc    Get all users
+// @route   GET /api/users
+// @access  Private/Admin
+const getUsers = asyncHandler(async (req, res) => {
+
+    const users = await User.find({})
+
+    if (users) {
+        res.json(users)
+    }
+})
+
 module.exports = {
     authUser,
     registerUser,
     getUserProfile,
-    updateUserProfile
+    updateUserProfile,
+    getUsers
 }
