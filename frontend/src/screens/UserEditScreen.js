@@ -46,49 +46,50 @@ const UserEditScreen = ({ match, history }) => {
 
     return (
         <>
-        <Link to='/admin/userlist' className='btn btn-light my-3'>
-            Go Back
-        </Link>
-        <h1>Edit User</h1>
-        {loadingUpdate && <Loader />}
-        {errorUpdate && <Message variant='danger'>{errorUpdate}</Message>}
-        {/* successUpdate && <Message>User has been updated!</Message> */}
-        {loading ? <Loader /> : error ? <Message variant='danger'>{error}</Message>
-        : (
+            <Link to='/admin/userlist' className='btn btn-light my-3'>
+                Go Back
+            </Link>
             <FormContainer>
-                <Form onSubmit={submitHandler}>
-                    <Form.Group controlId='name'>
-                        <Form.Label>Name</Form.Label>
-                        <Form.Control 
-                            type='text'
-                            placeholder='Enter name' 
-                            value={name} 
-                            onChange={(e) => setName(e.target.value)}
-                        />
-                    </Form.Group>
-                    <Form.Group controlId='email'>
-                        <Form.Label>Email Address</Form.Label>
-                        <Form.Control 
-                            type='email' 
-                            placeholder='Enter email' 
-                            value={email} 
-                            onChange={(e) => setEmail(e.target.value)}
-                        />
-                    </Form.Group>
-                    <Form.Group controlId='isadmin'>
-                        <Form.Check 
-                            type='checkbox' 
-                            checked={isAdmin} 
-                            onChange={(e) => setIsAdmin(e.target.checked)}
-                        />
-                    </Form.Group>
+                <h1>Edit User</h1>
+                {loadingUpdate && <Loader />}
+                {errorUpdate && <Message variant='danger'>{errorUpdate}</Message>}
+                {/* successUpdate && <Message>User has been updated!</Message> */}
+                {loading ? <Loader /> : error ? <Message variant='danger'>{error}</Message>
+                : (
+                
+                    <Form onSubmit={submitHandler}>
+                        <Form.Group controlId='name'>
+                            <Form.Label>Name</Form.Label>
+                            <Form.Control 
+                                type='text'
+                                placeholder='Enter name' 
+                                value={name} 
+                                onChange={(e) => setName(e.target.value)}
+                            />
+                        </Form.Group>
+                        <Form.Group controlId='email'>
+                            <Form.Label>Email Address</Form.Label>
+                            <Form.Control 
+                                type='email' 
+                                placeholder='Enter email' 
+                                value={email} 
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
+                        </Form.Group>
+                        <Form.Group controlId='isadmin'>
+                            <Form.Check 
+                                type='checkbox' 
+                                checked={isAdmin} 
+                                onChange={(e) => setIsAdmin(e.target.checked)}
+                            />
+                        </Form.Group>
 
-                    <Button type='submit' variant='primary'>
-                        Update
-                    </Button>
-                </Form>
+                        <Button type='submit' variant='primary'>
+                            Update
+                        </Button>
+                    </Form>
+                )}
             </FormContainer>
-            )}
         </>
     )
 }
