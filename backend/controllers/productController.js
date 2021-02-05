@@ -5,7 +5,18 @@ const asyncHandler = require('express-async-handler')
 // @route   GET /api/products
 // @access  Public
 const getProducts = asyncHandler(async (req, res) => {
-    const products = await Product.find({})
+    const keyword = req.query.keyword ? {
+        name: {
+            /** use $regex because we don't wanna search exact name
+            and if some part of string is contained to product's name
+            that product should be displayed */
+            $regex: req.query.keyword,
+            // 'i' means that keywords are case insensitive
+            $options: 'i'
+        }
+    } : {}
+
+    const products = await Product.find({ ...keyword })
     res.json(products)
 })
 
