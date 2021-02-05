@@ -2,6 +2,7 @@ const path = require('path')
 const express = require('express')
 const dotenv = require('dotenv')
 const colors = require('colors')
+const morgan = require('morgan')
 const connectDB = require('./config/db')
 // Routes
 const productRoutes = require('./routes/productRoutes')
@@ -18,6 +19,11 @@ connectDB()
 
 // App initialization
 const app = express()
+
+// Shows requested endpoint with status in console
+if (process.env.NODE_ENV === 'development') {
+    app.use(morgan('dev'))
+}
 
 app.use(express.json())
 
