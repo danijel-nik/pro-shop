@@ -1,12 +1,22 @@
 const express = require('express')
 const router = express.Router()
 const { protect, admin } = require('../middleware/authMiddleware')
-const { getProducts, getProductById, deleteProduct, createProduct, updateProduct, createProductReview } = require('../controllers/productController')
+const { 
+    getProducts, 
+    getProductById, 
+    deleteProduct, 
+    createProduct, 
+    updateProduct, 
+    createProductReview, 
+    getTopProducts 
+} = require('../controllers/productController')
 
 router
     .route('/')
     .get(getProducts)
     .post(protect, admin, createProduct)
+
+router.get('/top', getTopProducts)
 
 router
     .route('/:id')
