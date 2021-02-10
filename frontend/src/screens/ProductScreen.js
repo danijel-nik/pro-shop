@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { listProductDetails, createProductReview } from '../store/actions/productActions'
 import { Link } from 'react-router-dom'
 import { Row, Col, Image, ListGroup, Card, Button, ListGroupItem, Form } from 'react-bootstrap'
+import Meta from '../components/Meta'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 import Rating from '../components/Rating'
@@ -59,6 +60,7 @@ const ProductScreen = ({ history, match }) => {
                 : error ? <Message variant="danger">{error}</Message>
                 : (
                     <>
+                        <Meta title={`${product.name} | Proshop`} />
                         <Row>
                             <Col md={6}>
                                 <Image src={product.image} alt={product.name} fluid />
