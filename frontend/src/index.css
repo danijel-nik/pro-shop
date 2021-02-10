@@ -12,6 +12,10 @@ main {
 }
 
 /* carousel */
+.carousel {
+  margin-top: -13px;
+}
+
 .carousel-item-next,
 .carousel-item-prev,
 .carousel-item.active {

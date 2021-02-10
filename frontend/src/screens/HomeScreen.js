@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { listProducts } from '../store/actions/productActions'
-import { Row, Col } from 'react-bootstrap'
+import { Container, Row, Col } from 'react-bootstrap'
 import Product from '../components/Product'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
@@ -28,24 +28,28 @@ const HomeScreen = ({ match }) => {
     return (
         <>
             <Meta />
-            {!keyword ? <ProductCarousel /> : <Link to='/'>Go back</Link>}
-            <h1>Latest Products</h1>
-            {loading ? (
-                <Loader />
-            ) : error ? (
-                <Message variant='danger'>{error}</Message>
-            ) : (
-                <>
-                    <Row>
-                        {products.map((product) => (
-                            <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
-                                <Product product={product} />
-                            </Col>
-                        ))}
-                    </Row>
-                    <Paginate pages={pages} page={page} keyword={keyword ? keyword : ''} />
-                </>
-            )}
+            {!keyword && <ProductCarousel />}
+            <Container>
+                <h1>{keyword ? `Searching for "${keyword}"` : 'Latest Products'}</h1>
+                {loading ? (
+                    <Loader />
+                ) : error ? (
+                    <Message variant='danger'>{error}</Message>
+                ) : (
+                    <>
+                        {keyword && <Link to='/'>Go back</Link>}
+                        <Row>
+                            {products.map((product) => (
+                                <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
+                                    <Product product={product} />
+                                </Col>
+                            ))}
+                        </Row>
+                        <Paginate pages={pages} page={page} keyword={keyword ? keyword : ''} />
+                    </>
+                )}
+                {keyword && products.length === 0 && <h4 className='py-4'>No results... :(</h4>}
+            </Container>
         </>
     )
 }
